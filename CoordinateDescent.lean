@@ -1,0 +1,3 @@
+import CoordinateDescent.Defs
+import CoordinateDescent.SufficientDecrease
+import CoordinateDescent.Convergence
