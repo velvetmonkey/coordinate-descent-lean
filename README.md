@@ -9,6 +9,8 @@
 
 Lean 4 formal proofs for coordinate descent on finite-dimensional vectors `Fin n -> Real`. The development covers coordinate-wise Lipschitz smoothness, coordinate updates, sufficient decrease, monotonicity, convexity gap bounds, telescoping decrease, and an O(1/K) approximate-stationarity convergence result.
 
+The `FunctionGap` extension adds a certified function-value O(1/K) suboptimality bound, complementing the approximate-stationarity theorem in `Convergence.lean`.
+
 **Zero sorry statements.** Standard axioms only (`propext`, `Classical.choice`, `Quot.sound`).
 
 ## Why it matters
@@ -64,6 +66,9 @@ CoordinateDescent/
 │                             convexity gap bounds
 └── Convergence.lean        — CoordDescentSeq, telescoping,
                               per-step and O(1/K) convergence bounds
+├── FunctionGapCore.lean    — Function-gap infrastructure from the Aristotle
+│                             extension
+└── FunctionGap.lean        — Function-value O(1/K) suboptimality bound
 CoordinateDescent.lean      — Root module
 ```
 
@@ -86,6 +91,14 @@ CoordinateDescent.lean      — Root module
 | 13 | `CoordDescentSetup.L_le_Lmax` | If `0 < n`, then `L_i <= Lmax` |
 | 14 | `div_L_mono` | `1/(2*a)*t >= 1/(2*b)*t` when `0 < a <= b` and `0 <= t` |
 | 15 | `coord_descent_convergence` | There exists `k < K` with selected squared partial derivative bounded by `2*Lmax*(f(x_0)-f*)/K` |
+| 16 | `CoordinateDescent.FunctionGap.distSq_nonneg` | Squared Euclidean distance is nonnegative |
+| 17 | `CoordinateDescent.FunctionGap.coord_descent_monotone` | Function values decrease at every step in a function-gap sequence |
+| 18 | `CoordinateDescent.FunctionGap.CoordDescentSeq.telescope` | Total function-value decrease bounds the sum of per-step squared-gradient terms |
+| 19 | `CoordinateDescent.FunctionGap.CoordDescentSeq.f_antitone` | Function values are antitone along a function-gap sequence |
+| 20 | `CoordinateDescent.FunctionGap.CoordDescentSeq.dist_telescope` | Distance plus accumulated future gaps is bounded by initial distance |
+| 21 | `CoordinateDescent.FunctionGap.CoordDescentSeq.sum_lower_bound` | `K * (f(x_K)-f*)` is bounded by the accumulated function gaps |
+| 22 | `CoordinateDescent.FunctionGap.coord_descent_gap_convergence` | `f(x_K)-f* <= Lmax * R^2 / (2*K)` |
+| 23 | `CoordinateDescent.FunctionGap.coord_descent_gap_convergence_exists` | There exists `k <= K` with function gap at most `Lmax * R^2 / (2*K)` |
 
 ## Dependencies
 
